@@ -28,6 +28,9 @@ jobs:
                 uses: bahmutov/npm-install@v1
                 with:
                     useLockFile: false
+                    useRollingCache: true
+                env:
+                    npm_config_build_from_source: true
 
             -   name: Lint
                 run: yarn lint
@@ -63,6 +66,9 @@ jobs:
                 uses: bahmutov/npm-install@v1
                 with:
                     useLockFile: false
+                    useRollingCache: true
+                env:
+                    npm_config_build_from_source: true
 
             -   name: Lint
                 run: yarn lint
