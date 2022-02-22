@@ -4,7 +4,6 @@
     "description": "Librería para validaciones de XML con Esquemas XSD",
     "main": "dist/xml-schema-validator.cjs.js",
     "module": "dist/xml-schema-validator.esm.js",
-    "browser": "dist/xml-schema-validator.umd.js",
     "types": "dist/xml-schema-validator.d.ts",
     "files": [
         "dist"

@@ -9,10 +9,16 @@ import { ValidationFailException } from './exceptions/validation-fail-exception'
 import { XmlSchemaValidatorException } from './exceptions/xml-schema-validator-exception';
 import { LibXmlException } from './internal/LibXmlException';
 
+export interface SchemaXSD {
+    validate(source: string): SyntaxError[] | null;
+
+    validateFile(sourcePath: string): SyntaxError[] | null;
+}
+
 export class SchemaValidator {
     private readonly _document: Document;
     private _lastError = '';
-    private _schemaValidator?: xsd.SchemaXSD;
+    private _schemaValidator?: SchemaXSD;
 
     /**
      * SchemaValidator constructor.
