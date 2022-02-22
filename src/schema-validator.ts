@@ -61,10 +61,6 @@ export class SchemaValidator {
                 schemas = this.buildSchemas();
             }
             this.validateWithSchemas(schemas);
-            const validationErrors = this._schemaValidator?.validate(
-                new XMLSerializer().serializeToString(this._document)
-            );
-            LibXmlException.createFromLibXml(validationErrors, true);
         } catch (e) {
             const ex = e as XmlSchemaValidatorException;
             this._lastError = ex.message;
@@ -93,6 +89,10 @@ export class SchemaValidator {
 
         try {
             this._schemaValidator = xsd.parse(xsdXml);
+            const validationErrors = this._schemaValidator?.validate(
+                new XMLSerializer().serializeToString(this._document)
+            );
+            LibXmlException.createFromLibXml(validationErrors, true);
         } catch (e) {
             throw ValidationFailException.create(e as Error);
         }

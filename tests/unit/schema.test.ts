@@ -1,4 +1,4 @@
-import { Schema } from '../../src/schema';
+import { Schema } from '../../src';
 
 describe('Schema', () => {
     test('create object and read properties', () => {

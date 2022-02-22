@@ -1,9 +1,6 @@
-import { SchemaValidator } from '../../src/schema-validator';
 import { TestCase } from '../TestCase';
 import { DOMParser } from '@xmldom/xmldom';
-import { XmlContentIsEmptyException } from '../../src/exceptions/xml-content-is-empty-exception';
-import { Schemas } from '../../src/schemas';
-import { ValidationFailException } from '../../src/exceptions/validation-fail-exception';
+import { XmlContentIsEmptyException, SchemaValidator, Schemas, ValidationFailException } from '../../src';
 
 describe('SchemaValidators', () => {
     const utilCreateValidator = (file: string): SchemaValidator => {

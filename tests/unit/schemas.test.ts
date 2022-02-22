@@ -1,8 +1,6 @@
 import 'jest-xml-matcher';
 import { TestCase } from '../TestCase';
-import { Schemas } from '../../src/schemas';
-import { Schema } from '../../src/schema';
-import { NamespaceNotFoundInSchemas } from '../../src/exceptions/namespace-not-found-in-schemas';
+import { Schemas, Schema, NamespaceNotFoundInSchemas } from '../../src';
 
 describe('Schemas', () => {
     const createSchemasWithCount = (count: number, ns: string, location: string): Schemas => {

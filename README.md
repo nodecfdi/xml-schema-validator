@@ -30,3 +30,68 @@
 ## Acerca de @nodecfdi/xml-schema-validator
 
 Esta es una librería para validar archivos XML a través de multiples Esquemas XSD acorde a sus definiciones.
+
+1. Recibe un string xml válido con el contenido a ser evaluado.
+2. Escanear el archivo por cada schemaLocation.
+3. Generar un esquema que incluya todos los esquemas.
+4. Validar el xml nuevamente con el esquema generado.
+
+Librería inspirada por la versión para php https://github.com/eclipxe13/XmlSchemaValidator
+
+## Advertencia
+
+Actualmente solo está soportada la carga de esquema local, no funciona con esquemas remotos, debido a incompatibilidad
+con la lib actual.
+
+## Instalación
+
+```shell
+npm i @nodecfdi/cfdi-cleaner --save
+```
+
+o
+
+```shell
+yarn add @nodecfdi/cfdi-cleaner
+```
+
+## Ejemplo básico de uso
+
+```ts
+import { readFileSync } from 'fs';
+import { SchemaValidator } from "@nodecfdi/xml-schema-validator";
+
+const contents = readFileSync('example.xml', 'binary');
+
+// expect references on schemalocations are locally files
+const validator = SchemaValidator.createFromString(contents);
+if (!validator.validate()){
+    console.log(`Found error: ${validator.getLastError()}`);
+}
+```
+## Ejemplo avanzado de uso
+
+```ts
+import { DOMParser } from '@xmldom/xmldom';
+import { SchemaValidator } from "@nodecfdi/xml-schema-validator";
+
+// create SchemaValidator using a Document
+const docParse = new DOMParser().parseFromString('example.xml', 'text/xml');
+const validator = new SchemaValidator(docParse);
+
+// change schemas collection to override the schema location of a specific namespace
+const schemas = validator.buildSchemas();
+schemas.create('http://example.org/schemas/x1', './local-schemas/x1.xsd');
+
+// validateWithSchemas does not return boolean, it throws an exception
+try{
+    validator.validateWithSchemas(schemas);
+}catch (e) {
+    console.log(`Found error: ${e.message}`);
+}
+
+// or validate with boolean
+if (!validator.validate(schemas)){
+    console.log(`Found error: ${validator.getLastError()}`);
+}
+```
