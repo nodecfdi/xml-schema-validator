@@ -24,11 +24,11 @@ jobs:
                 with:
                     node-version: ${{ matrix.node }}
 
-            -   name: Install deps and build (with cache)
-                uses: bahmutov/npm-install@v1
-                with:
-                    useLockFile: false
-                    useRollingCache: true
+            -   name: Setup yarn
+                run: npm install -g yarn
+
+            -   name: Install dependencies
+                run: yarn
                 env:
                     npm_config_build_from_source: true
 
@@ -62,11 +62,11 @@ jobs:
                 with:
                     node-version: ${{ matrix.node }}
 
-            -   name: Install deps and build (with cache)
-                uses: bahmutov/npm-install@v1
-                with:
-                    useLockFile: false
-                    useRollingCache: true
+            -   name: Setup yarn
+                run: npm install -g yarn
+
+            -   name: Install dependencies
+                run: yarn
                 env:
                     npm_config_build_from_source: true
 
