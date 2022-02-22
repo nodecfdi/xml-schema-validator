@@ -27,6 +27,13 @@ jobs:
             -   name: Setup yarn
                 run: npm install -g yarn
 
+            -   name: Patch node gyp on windows to support visual studio 2019
+                if: matrix.os == 'windows-latest'
+                shell: powershell
+                run: |
+                    npm install --global node-gyp@latest
+                    npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+
             -   name: Install dependencies
                 run: yarn
                 env:
@@ -64,6 +71,13 @@ jobs:
 
             -   name: Setup yarn
                 run: npm install -g yarn
+
+            -   name: Patch node gyp on windows to support visual studio 2019
+                if: matrix.os == 'windows-latest'
+                shell: powershell
+                run: |
+                    npm install --global node-gyp@latest
+                    npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
             -   name: Install dependencies
                 run: yarn
