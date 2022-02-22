@@ -46,13 +46,13 @@ con la lib actual.
 ## Instalación
 
 ```shell
-npm i @nodecfdi/cfdi-cleaner --save
+npm i @nodecfdi/xml-schema-validator --save
 ```
 
 o
 
 ```shell
-yarn add @nodecfdi/cfdi-cleaner
+yarn add @nodecfdi/xml-schema-validator
 ```
 
 ## Ejemplo básico de uso
