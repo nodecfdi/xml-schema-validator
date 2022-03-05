@@ -37,7 +37,10 @@ export class LibXmlException extends Error {
      * @param errors
      * @param withThrown
      */
-    public static createFromLibXml(errors: SyntaxError[] | null | undefined, withThrown= false): LibXmlException | null {
+    public static createFromLibXml(
+        errors: SyntaxError[] | null | undefined,
+        withThrown = false
+    ): LibXmlException | null {
         if (!errors || errors.length === 0) {
             return null;
         }

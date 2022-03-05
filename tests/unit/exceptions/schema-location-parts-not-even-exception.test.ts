@@ -1,4 +1,4 @@
-import { SchemaLocationPartsNotEvenException } from '../../../src/exceptions/schema-location-parts-not-even-exception';
+import { SchemaLocationPartsNotEvenException } from '../../../src';
 
 describe('SchemaLocationPartsNotEvenException', () => {
     test('create', () => {

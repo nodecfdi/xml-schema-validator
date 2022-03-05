@@ -1,4 +1,4 @@
-import { ValidationFailException } from '../../../src/exceptions/validation-fail-exception';
+import { ValidationFailException } from '../../../src';
 
 describe('ValidationFailException', () => {
     test('create', () => {

@@ -3,5 +3,6 @@ dist
 build
 docs
 coverage
+tests/assets
 
 jest.config.js

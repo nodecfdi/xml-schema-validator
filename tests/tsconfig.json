@@ -6,8 +6,8 @@
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
         "isolatedModules": false,
-        "strict": false,
-        "noImplicitAny": false,
+        "strict": true,
+        "noImplicitAny": true,
         "typeRoots": [
             "../node_modules/@types"
         ]

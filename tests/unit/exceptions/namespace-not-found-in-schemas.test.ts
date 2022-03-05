@@ -1,4 +1,4 @@
-import { NamespaceNotFoundInSchemas } from '../../../src/exceptions/namespace-not-found-in-schemas';
+import { NamespaceNotFoundInSchemas } from '../../../src';
 
 describe('NamespaceNotFoundInSchemas', () => {
     test('create', () => {

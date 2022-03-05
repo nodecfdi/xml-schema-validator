@@ -1,4 +1,4 @@
-import { XmlContentIsInvalidException } from '../../../src/exceptions/xml-content-is-invalid-exception';
+import { XmlContentIsInvalidException } from '../../../src';
 
 describe('XmlContentIsInvalidException', () => {
     test('create', () => {

@@ -15,6 +15,6 @@ export default [
             { file: pkg.module, format: 'es' },
         ],
         plugins: [typescript({ tsconfig: './tsconfig.json' })],
-        external: ['@xmldom/xmldom', 'xpath', 'libxmljs2-xsd'],
+        external: ['@xmldom/xmldom', 'xpath', 'libxmljs2'],
     },
 ];

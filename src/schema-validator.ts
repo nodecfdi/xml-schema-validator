@@ -4,21 +4,14 @@ import { XmlContentIsEmptyException } from './exceptions/xml-content-is-empty-ex
 import { Schemas } from './schemas';
 import { SchemaLocationPartsNotEvenException } from './exceptions/schema-location-parts-not-even-exception';
 import { useNamespaces } from 'xpath';
-import * as xsd from 'libxmljs2-xsd';
+import { parseXml } from 'libxmljs2';
 import { ValidationFailException } from './exceptions/validation-fail-exception';
 import { XmlSchemaValidatorException } from './exceptions/xml-schema-validator-exception';
 import { LibXmlException } from './internal/LibXmlException';
 
-export interface SchemaXSD {
-    validate(source: string): SyntaxError[] | null;
-
-    validateFile(sourcePath: string): SyntaxError[] | null;
-}
-
 export class SchemaValidator {
     private readonly _document: Document;
     private _lastError = '';
-    private _schemaValidator?: SchemaXSD;
 
     /**
      * SchemaValidator constructor.
@@ -88,11 +81,10 @@ export class SchemaValidator {
         const xsdXml = schemas.getImporterXsd();
 
         try {
-            this._schemaValidator = xsd.parse(xsdXml);
-            const validationErrors = this._schemaValidator?.validate(
-                new XMLSerializer().serializeToString(this._document)
-            );
-            LibXmlException.createFromLibXml(validationErrors, true);
+            const xsdDoc = parseXml(xsdXml);
+            const xmlTarget = parseXml(new XMLSerializer().serializeToString(this._document));
+            xmlTarget.validate(xsdDoc);
+            LibXmlException.createFromLibXml(xmlTarget.validationErrors, true);
         } catch (e) {
             throw ValidationFailException.create(e as Error);
         }
