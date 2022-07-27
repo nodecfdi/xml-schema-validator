@@ -1,22 +1,24 @@
-import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
+import { getParser, getSerializer } from '@nodecfdi/cfdiutils-common';
+import { useNamespaces } from 'xpath';
+import { parseXml } from 'libxmljs2';
+
 import { XmlContentIsInvalidException } from './exceptions/xml-content-is-invalid-exception';
 import { XmlContentIsEmptyException } from './exceptions/xml-content-is-empty-exception';
 import { Schemas } from './schemas';
 import { SchemaLocationPartsNotEvenException } from './exceptions/schema-location-parts-not-even-exception';
-import { useNamespaces } from 'xpath';
-import { parseXml } from 'libxmljs2';
 import { ValidationFailException } from './exceptions/validation-fail-exception';
 import { XmlSchemaValidatorException } from './exceptions/xml-schema-validator-exception';
-import { LibXmlException } from './internal/LibXmlException';
+import { LibXmlException } from './internal/lib-xml-exception';
 
 export class SchemaValidator {
     private readonly _document: Document;
+
     private _lastError = '';
 
     /**
      * SchemaValidator constructor.
      *
-     * @param document
+     * @param document -
      */
     constructor(document: Document) {
         this._document = document;
@@ -27,17 +29,31 @@ export class SchemaValidator {
         if ('' == contents) {
             throw XmlContentIsEmptyException.create();
         }
+
+        let docParse: Document | null = null;
         const errors: Record<string, unknown> = {};
-        const parser = new DOMParser({
-            errorHandler: (level, msg): void => {
-                errors[level] = msg;
-            },
-        });
-        const docParse = parser.parseFromString(contents, 'text/xml');
-        if (Object.keys(errors).length !== 0) {
+        const parser = getParser();
+        // Only for @xmldom/xmldom capture not error fatal
+        if ((parser as unknown as Record<string, unknown>).options) {
+            (parser as unknown as Record<string, Record<string, unknown>>).options = {
+                errorHandler: (level: string, msg: unknown): void => {
+                    errors[level] = msg;
+                },
+                locator: {}
+            };
+        }
+
+        try {
+            docParse = parser.parseFromString(contents, 'text/xml');
+
+            if (Object.keys(errors).length !== 0 || !docParse.documentElement) {
+                throw new Error('Invalid xml');
+            }
+        } catch (e) {
             const error = SyntaxError(`Cannot create a Document from xml string, errors: ${JSON.stringify(errors)}`);
             throw XmlContentIsInvalidException.create(error);
         }
+
         return new SchemaValidator(docParse);
     }
 
@@ -57,8 +73,10 @@ export class SchemaValidator {
         } catch (e) {
             const ex = e as XmlSchemaValidatorException;
             this._lastError = ex.message;
+
             return false;
         }
+
         return true;
     }
 
@@ -72,7 +90,7 @@ export class SchemaValidator {
     /**
      * Validate against a list of schemas (if any)
      *
-     * @param schemas
+     * @param schemas -
      */
     public validateWithSchemas(schemas: Schemas): void {
         if (0 == schemas.length) return;
@@ -82,7 +100,7 @@ export class SchemaValidator {
 
         try {
             const xsdDoc = parseXml(xsdXml);
-            const xmlTarget = parseXml(new XMLSerializer().serializeToString(this._document));
+            const xmlTarget = parseXml(getSerializer().serializeToString(this._document));
             xmlTarget.validate(xsdDoc);
             LibXmlException.createFromLibXml(xmlTarget.validationErrors, true);
         } catch (e) {
@@ -93,7 +111,7 @@ export class SchemaValidator {
     /**
      * Retrieve a list of namespaces based on the schemaLocation attributes
      *
-     * @throws {SchemaLocationPartsNotEvenException} When the schemaLocation attribute does not have even parts
+     * @throws SchemaLocationPartsNotEvenException When the schemaLocation attribute does not have even parts
      */
     public buildSchemas(): Schemas {
         const schemas = new Schemas();
@@ -108,7 +126,7 @@ export class SchemaValidator {
 
         // get all the xsi:schemaLocation attributes in the document
         const namespaces = {
-            [`${xsi}`]: 'http://www.w3.org/2001/XMLSchema-instance',
+            [`${xsi}`]: 'http://www.w3.org/2001/XMLSchema-instance'
         };
 
         const selectWithNS = useNamespaces(namespaces);
@@ -127,8 +145,8 @@ export class SchemaValidator {
     /**
      * Create a schema´s collection from the content of a schema location
      *
-     * @param content
-     * @throws {SchemaLocationPartsNotEvenException} When the schemaLocation attribute does not have even parts
+     * @param content -
+     * @throws SchemaLocationPartsNotEvenException When the schemaLocation attribute does not have even parts
      */
     public buildSchemasFromSchemaLocationValue(content: string): Schemas {
         // get parts without inner spaces
@@ -144,6 +162,7 @@ export class SchemaValidator {
         for (let k = 0; k < parts.length; k = k + 2) {
             schemas.create(parts[k], parts[k + 1]);
         }
+
         return schemas;
     }
 }
