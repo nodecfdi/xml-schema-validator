@@ -3,6 +3,7 @@
  */
 export class Schema {
     private readonly _namespace: string;
+
     private readonly _location: string;
 
     constructor(namespace: string, location: string) {

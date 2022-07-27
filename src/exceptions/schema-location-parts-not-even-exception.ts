@@ -6,9 +6,8 @@ export class SchemaLocationPartsNotEvenException extends Error implements XmlSch
     /**
      * SchemaLocationPartsNotEvenException constructor.
      *
-     * @param message
-     * @param parts
-     * @private
+     * @param message -
+     * @param parts -
      */
     private constructor(message: string, parts: string[]) {
         super(message);

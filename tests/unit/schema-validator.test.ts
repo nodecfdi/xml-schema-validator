@@ -1,28 +1,48 @@
-import { TestCase } from '../TestCase';
-import { DOMParser } from '@xmldom/xmldom';
-import { XmlContentIsEmptyException, SchemaValidator, Schemas, ValidationFailException } from '../../src';
+import { getParser, install } from '@nodecfdi/cfdiutils-common';
+import { DOMImplementation, DOMParser, XMLSerializer } from '@xmldom/xmldom';
+
+import { TestCase } from '../test-case';
+import { Schemas } from '~/schemas';
+import { SchemaValidator } from '~/schema-validator';
 
 describe('SchemaValidators', () => {
     const utilCreateValidator = (file: string): SchemaValidator => {
         const contents = TestCase.fileContents(file);
+
         return SchemaValidator.createFromString(contents);
     };
 
-    test('construct using existing document', () => {
-        const docParse = new DOMParser().parseFromString(TestCase.fileContents('books-valid.xml'), 'text/xml');
-        new SchemaValidator(docParse);
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
 
-        expect(true).toBeTruthy();
+    test('construct using existing document', () => {
+        const docParse = getParser().parseFromString(TestCase.fileContents('books-valid.xml'), 'text/xml');
+        const t = (): SchemaValidator => new SchemaValidator(docParse);
+
+        expect(t()).toBeInstanceOf(SchemaValidator);
     });
 
     test('constructor with empty string', () => {
-        expect.hasAssertions();
-        try {
-            SchemaValidator.createFromString('');
-        } catch (e) {
-            expect(e).toBeInstanceOf(XmlContentIsEmptyException);
-            expect(e).toHaveProperty('message', 'The xml contents is an empty string');
-        }
+        const t = (): SchemaValidator => SchemaValidator.createFromString('');
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('The xml contents is an empty string');
+    });
+
+    test('constructor with bad xml string', () => {
+        const xmlString = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<book>',
+            '    <tag>This element does not have a closing tag',
+            '</book>'
+        ].join('\n');
+        const t = (): SchemaValidator => SchemaValidator.createFromString(xmlString);
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow(
+            'The xml contents cannot be loaded: Cannot create a Document from xml string, errors: {"warning":"[xmldom warning]\\tunclosed xml attribute\\n@#[line:3,col:5]"}'
+        );
     });
 
     test('validate with no schema', () => {
@@ -110,15 +130,6 @@ describe('SchemaValidators', () => {
         expect(valid).toBeFalsy();
     });
 
-    // test('validate with schemas using remote', () => {
-    //     const validator = utilCreateValidator('books-valid.xml');
-    //     const schemas = new Schemas();
-    //     schemas.create('http://test.org/schemas/books', 'http://localhost:8999/xsd/books.xsd');
-    //     validator.validateWithSchemas(schemas);
-    //
-    //     expect(true).toBeTruthy();
-    // });
-
     test('validate with schemas using local', () => {
         const validator = utilCreateValidator('books-valid.xml');
         const schemas = new Schemas();
@@ -133,18 +144,15 @@ describe('SchemaValidators', () => {
         const schemas = new Schemas();
         schemas.create('http://test.org/schemas/books', TestCase.filePath('empty.xsd'));
 
-        expect.hasAssertions();
-        try {
-            validator.validateWithSchemas(schemas);
-        } catch (e) {
-            expect(e).toBeInstanceOf(ValidationFailException);
-            expect(e).toHaveProperty('message', 'Schema validation failed: Invalid XSD schema');
-        }
+        const t = (): void => validator.validateWithSchemas(schemas);
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('Schema validation failed: Invalid XSD schema');
     });
 
     test('build schemas', () => {
         const expected = {
-            'http://test.org/schemas/books': 'http://localhost:8999/xsd/books.xsd',
+            'http://test.org/schemas/books': 'http://localhost:8999/xsd/books.xsd'
         };
         const validator = utilCreateValidator('books-valid.xml');
         const schemas = validator.buildSchemas();
