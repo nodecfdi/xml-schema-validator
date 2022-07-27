@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'fs';
 
 export class TestCase {
     public static filePath(filename: string): string {
-        return `${__dirname}/assets/${filename}`;
+        return `${__dirname}/_files/${filename}`;
     }
 
     public static filePublicPath(filename: string): string {
@@ -13,6 +13,7 @@ export class TestCase {
         if (!existsSync(TestCase.filePath(filename))) {
             return '';
         }
+
         return readFileSync(TestCase.filePath(filename), 'binary');
     }
 }

@@ -5,7 +5,7 @@ dist/
 /.vscode/settings.json
 /scratch
 /reports
-tests/_build
+tests/_files/build
 scratch
 *.tsbuildinfo
 .pnpm-debug.log
