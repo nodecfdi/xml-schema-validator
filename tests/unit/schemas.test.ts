@@ -1,13 +1,20 @@
-import 'jest-xml-matcher';
-import { TestCase } from '../TestCase';
-import { Schemas, Schema, NamespaceNotFoundInSchemas } from '../../src';
+import { install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { Schemas } from '~/schemas';
+import { Schema } from '~/schema';
+import { TestCase } from '../test-case';
 
 describe('Schemas', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     const createSchemasWithCount = (count: number, ns: string, location: string): Schemas => {
         const schemas = new Schemas();
         for (let i = 0; i < count; i++) {
             schemas.create(`${ns}${i}`, `${location}${i}`);
         }
+
         return schemas;
     };
 
@@ -37,13 +44,12 @@ describe('Schemas', () => {
         const ns = 'http://example.com';
         const schemas = new Schemas();
 
-        expect.hasAssertions();
-        try {
-            schemas.item(ns);
-        } catch (e) {
-            expect(e).toBeInstanceOf(NamespaceNotFoundInSchemas);
-            expect(e).toHaveProperty('message', `Namespace ${ns} does not exists in the schemas`);
-        }
+        const t = (): Schema => {
+            return schemas.item(ns);
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow(`Namespace ${ns} does not exists in the schemas`);
     });
 
     test('insert', () => {
@@ -128,7 +134,7 @@ describe('Schemas', () => {
             '<?xml version="1.0" encoding="UTF-8"?>',
             '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">',
             '   <xs:import namespace="http://tempuri.org/foo" schemaLocation="/C:/XSD/foo.xsd"/>',
-            '</xs:schema>',
+            '</xs:schema>'
         ].join('\n');
 
         expect(schemas.getImporterXsd()).toEqualXML(expectedXml);

@@ -1,4 +1,4 @@
-import { XmlContentIsEmptyException } from '../../../src';
+import { XmlContentIsEmptyException } from '~/exceptions/xml-content-is-empty-exception';
 
 describe('XmlContentIsEmptyException', () => {
     test('create', () => {

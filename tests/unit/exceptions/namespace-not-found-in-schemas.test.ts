@@ -1,4 +1,4 @@
-import { NamespaceNotFoundInSchemas } from '../../../src';
+import { NamespaceNotFoundInSchemas } from '~/exceptions/namespace-not-found-in-schemas';
 
 describe('NamespaceNotFoundInSchemas', () => {
     test('create', () => {
@@ -15,13 +15,7 @@ describe('NamespaceNotFoundInSchemas', () => {
             throw NamespaceNotFoundInSchemas.create('FOO');
         };
 
-        expect.hasAssertions();
-        try {
-            throwableFunction();
-        } catch (e) {
-            expect(e).toBeInstanceOf(RangeError);
-            expect(e).toHaveProperty('message', 'Namespace FOO does not exists in the schemas');
-            expect((e as NamespaceNotFoundInSchemas).getNamespace()).toBe('FOO');
-        }
+        expect(throwableFunction).toThrow(RangeError);
+        expect(throwableFunction).toThrow('Namespace FOO does not exists in the schemas');
     });
 });

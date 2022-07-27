@@ -16,6 +16,7 @@ module.exports = {
     },
     collectCoverageFrom: [
         '<rootDir>/src/**',
+        '!<rootDir>/src/internal/lib-xml-exception.ts',
         '!<rootDir>/src/index.ts',
         '!<rootDir>/src/types.ts',
         '!<rootDir>/src/**.d.ts',
