@@ -17,3 +17,6 @@
 /.husky/**                  linguist-detectable=false
 *.cjs                       linguist-detectable=false
 /examples/**                linguist-detectable=false
+*.mjs                       linguist-detectable=false
+
+*.json                      linguist-language=JSON-with-Comments

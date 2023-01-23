@@ -1,7 +1,9 @@
 node_modules
+coverage
 dist
 docs
-examples
-coverage
-web_modules
-tsconfig.json
+temp
+
+# Config files
+rollup.config.mjs
+vitest.config.ts
