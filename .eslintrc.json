@@ -1,0 +1,68 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
+    "extends": ["eslint:recommended", "xo", "xo-typescript", "plugin:unicorn/recommended", "prettier"],
+    "parserOptions": {
+        "project": ["./tsconfig.json", "./tests/tsconfig.json"]
+    },
+    "rules": {
+        // Eslint suite rules
+        "new-cap": ["error", { "capIsNew": false }],
+        "semi": "error",
+        "quotes": [
+            "error",
+            "single",
+            {
+                "allowTemplateLiterals": true,
+                "avoidEscape": true
+            }
+        ],
+
+        // Typescript rules
+        "@typescript-eslint/ban-types": [
+            "error",
+            {
+                "types": {
+                    "null": false
+                },
+                "extendDefaults": true
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+                "allowExpressions": true,
+                "allowTypedFunctionExpressions": true
+            }
+        ],
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                "accessibility": "explicit",
+                "overrides": {
+                    "constructors": "no-public"
+                }
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            { "selector": "class", "format": ["PascalCase", "camelCase"] }
+        ],
+
+        // Unicorn rules
+        "unicorn/consistent-function-scoping": [
+            "error",
+            {
+                "checkArrowFunctions": false
+            }
+        ],
+        "unicorn/no-null": "off",
+        "unicorn/prefer-dom-node-append": "off",
+        "unicorn/prefer-export-from": "off",
+        "unicorn/prefer-query-selector": "off",
+
+        // TSDOC rules
+        "tsdoc/syntax": "warn"
+    }
+}

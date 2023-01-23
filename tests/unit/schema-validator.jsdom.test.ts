@@ -1,11 +1,14 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { getParser, install } from '@nodecfdi/cfdiutils-common';
-import { DOMImplementation, DOMParser, XMLSerializer } from '@xmldom/xmldom';
 
 import { Schemas } from '~/schemas';
 import { SchemaValidator } from '~/schema-validator';
 import { useTestCase } from '../test-case';
 
-describe('SchemaValidators', () => {
+describe('SchemaValidators_jsdom', () => {
     const { fileContents, filePath, filePublicPath } = useTestCase();
 
     const utilCreateValidator = (file: string): SchemaValidator => {
@@ -15,7 +18,7 @@ describe('SchemaValidators', () => {
     };
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('construct using existing document', () => {
@@ -43,7 +46,7 @@ describe('SchemaValidators', () => {
 
         expect(t).toThrow(Error);
         expect(t).toThrow(
-            'The xml contents cannot be loaded: Cannot create a Document from xml string, errors: {"warning":"[xmldom warning]\\tunclosed xml attribute\\n@#[line:3,col:5]"}'
+            'The xml contents cannot be loaded: Cannot create a Document from xml string, errors: {"warning":"4:7: unexpected close tag."}'
         );
     });
 
