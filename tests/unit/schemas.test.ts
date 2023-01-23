@@ -1,18 +1,21 @@
+import 'jest-xml-matcher';
 import { install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { Schemas } from '~/schemas';
 import { Schema } from '~/schema';
-import { TestCase } from '../test-case';
+import { useTestCase } from '../test-case';
 
 describe('Schemas', () => {
+    const { fileContents, filePath } = useTestCase();
+
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
     const createSchemasWithCount = (count: number, ns: string, location: string): Schemas => {
         const schemas = new Schemas();
-        for (let i = 0; i < count; i++) {
-            schemas.create(`${ns}${i}`, `${location}${i}`);
+        for (let index = 0; index < count; index++) {
+            schemas.create(`${ns}${index}`, `${location}${index}`);
         }
 
         return schemas;
@@ -44,9 +47,7 @@ describe('Schemas', () => {
         const ns = 'http://example.com';
         const schemas = new Schemas();
 
-        const t = (): Schema => {
-            return schemas.item(ns);
-        };
+        const t = (): Schema => schemas.item(ns);
 
         expect(t).toThrow(Error);
         expect(t).toThrow(`Namespace ${ns} does not exists in the schemas`);
@@ -76,6 +77,7 @@ describe('Schemas', () => {
             expect(schemas.exists(baseSchema.getNamespace())).toBeTruthy();
             expect(schemas.item(baseSchema.getNamespace())).toBe(baseSchema);
         }
+
         expect(schemas).toHaveLength(3);
     });
 
@@ -108,14 +110,14 @@ describe('Schemas', () => {
     });
 
     test('get importer xsd empty', () => {
-        const baseFile = TestCase.fileContents('include-template.xsd');
+        const baseFile = fileContents(filePath('include-template.xsd'));
         const schemas = new Schemas();
 
         expect(schemas.getImporterXsd()).toEqualXML(baseFile);
     });
 
     test('get importer xsd with contents', () => {
-        const baseFile = TestCase.fileContents('include-realurls.xsd');
+        const baseFile = fileContents(filePath('include-realurls.xsd'));
         const schemas = new Schemas();
         schemas.create('http://www.sat.gob.mx/cfd/3', 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd');
         schemas.create(
@@ -143,24 +145,27 @@ describe('Schemas', () => {
     test('iterator aggregate', () => {
         const data = [new Schema('a', 'aaa'), new Schema('b', 'bbb'), new Schema('c', 'ccc')];
         const schemas = new Schemas();
-        data.forEach((schema) => {
+        for (const schema of data) {
             schemas.insert(schema);
-        });
-        let i = 0;
+        }
+
+        let index = 0;
         for (const schema of schemas.values()) {
-            expect(schema).toBe(data[i]);
-            i++;
+            expect(schema).toBe(data[index]);
+            index++;
         }
-        i = 0;
+
+        index = 0;
         for (const ns of schemas.keys()) {
-            expect(ns).toBe(data[i].getNamespace());
-            i++;
+            expect(ns).toBe(data[index].getNamespace());
+            index++;
         }
-        i = 0;
+
+        index = 0;
         for (const [ns, schema] of schemas.entries()) {
-            expect(schema).toBe(data[i]);
-            expect(ns).toBe(data[i].getNamespace());
-            i++;
+            expect(schema).toBe(data[index]);
+            expect(ns).toBe(data[index].getNamespace());
+            index++;
         }
     });
 });

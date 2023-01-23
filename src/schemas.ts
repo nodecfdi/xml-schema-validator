@@ -15,12 +15,12 @@ export class Schemas {
         const pi = xsd.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"');
         xsd.insertBefore(pi, xsd.firstChild);
         const document = xsd.documentElement;
-        this._schemas.forEach((schema) => {
+        for (const [, schema] of this._schemas) {
             const node = xsd.createElementNS('http://www.w3.org/2001/XMLSchema', 'import');
             node.setAttribute('namespace', schema.getNamespace());
             node.setAttribute('schemaLocation', schema.getLocation().replace(/\\/g, '/'));
             document.appendChild(node);
-        });
+        }
 
         return getSerializer().serializeToString(xsd);
     }
@@ -97,7 +97,8 @@ export class Schemas {
         return this._schemas.size;
     }
 
-    // iterators of schemas
+    // Iterators of schemas
+
     public [Symbol.iterator](): IterableIterator<[string, Schema]> {
         return this._schemas[Symbol.iterator]();
     }

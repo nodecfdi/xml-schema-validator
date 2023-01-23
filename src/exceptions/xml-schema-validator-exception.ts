@@ -1,1 +1,1 @@
-export interface XmlSchemaValidatorException extends Error {}
+export type XmlSchemaValidatorException = Error;

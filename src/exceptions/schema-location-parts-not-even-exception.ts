@@ -1,6 +1,10 @@
-import { XmlSchemaValidatorException } from './xml-schema-validator-exception';
+import { type XmlSchemaValidatorException } from './xml-schema-validator-exception';
 
 export class SchemaLocationPartsNotEvenException extends Error implements XmlSchemaValidatorException {
+    public static create(parts: string[]): SchemaLocationPartsNotEvenException {
+        return new SchemaLocationPartsNotEvenException('The schemaLocation attribute does not have even parts', parts);
+    }
+
     private readonly _parts: string[];
 
     /**
@@ -12,10 +16,6 @@ export class SchemaLocationPartsNotEvenException extends Error implements XmlSch
     private constructor(message: string, parts: string[]) {
         super(message);
         this._parts = parts;
-    }
-
-    public static create(parts: string[]): SchemaLocationPartsNotEvenException {
-        return new SchemaLocationPartsNotEvenException('The schemaLocation attribute does not have even parts', parts);
     }
 
     /**

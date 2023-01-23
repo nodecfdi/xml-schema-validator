@@ -11,6 +11,7 @@ export default defineConfig({
             provider: 'istanbul',
             reporter: ['text', 'lcov'],
             include: ['src/**/*.ts']
-        }
+        },
+        threads: false
     }
 });
