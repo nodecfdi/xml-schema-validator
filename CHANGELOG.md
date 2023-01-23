@@ -1,5 +1,16 @@
 # @nodecfdi/xml-schema-validator ChangeLog
 
+## 1.1.1
+
+### Change build tool from microbundle to rollup
+
+- Change build tool
+- Update dependencies
+- Added api-extractor for check types `.d.ts`
+- Replace microbundle to rollup
+- Replace jest to vitest (added support to fast testing and multiple environment)
+- Increment code coverage with missing line testing
+
 ## 1.1.0
 
 ### DOM agnostic
