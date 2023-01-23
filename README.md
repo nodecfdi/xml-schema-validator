@@ -36,14 +36,22 @@ con la lib actual.
 
 ## Instalación
 
-```shell
+NPM
+
+```bash
 npm i @nodecfdi/xml-schema-validator --save
 ```
 
-o
+YARN
 
-```shell
+```bash
 yarn add @nodecfdi/xml-schema-validator
+```
+
+PNPM
+
+```bash
+pnpm add @nodecfdi/xml-schema-validator
 ```
 
 ## Ejemplo básico de uso usando [xmldom](https://www.npmjs.com/package/@xmldom/xmldom)
@@ -138,7 +146,7 @@ The `@nodecfdi/xml-schema-validator` library is copyright © [NodeCfdi](https://
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/xml-schema-validator.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/xml-schema-validator.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/xml-schema-validator/build/main?logo=github-actions
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/xml-schema-validator/build.yml?branch=main&logo=github-actions
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_xml-schema-validator&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_xml-schema-validator&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_xml-schema-validator/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
