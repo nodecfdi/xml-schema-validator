@@ -19,7 +19,7 @@ specifiers:
   eslint: ^8.32.0
   eslint-config-prettier: ^8.6.0
   eslint-config-xo: ^0.43.1
-  eslint-config-xo-typescript: ^0.55.1
+  eslint-config-xo-typescript: ^0.56.0
   eslint-plugin-tsdoc: ^0.2.17
   eslint-plugin-unicorn: ^45.0.2
   husky: ^8.0.3
@@ -60,7 +60,7 @@ devDependencies:
   eslint: 8.32.0
   eslint-config-prettier: 8.6.0_eslint@8.32.0
   eslint-config-xo: 0.43.1_eslint@8.32.0
-  eslint-config-xo-typescript: 0.55.1_dhxgky7xubg7msqg3vpyojh4wa
+  eslint-config-xo-typescript: 0.56.0_dhxgky7xubg7msqg3vpyojh4wa
   eslint-plugin-tsdoc: 0.2.17
   eslint-plugin-unicorn: 45.0.2_eslint@8.32.0
   husky: 8.0.3
@@ -2317,8 +2317,8 @@ packages:
       eslint: 8.32.0
     dev: true
 
-  /eslint-config-xo-typescript/0.55.1_dhxgky7xubg7msqg3vpyojh4wa:
-    resolution: {integrity: sha512-iXua+7n9fOp7LzGzvXlcZG0w6cdtscjASGTrAHMj0Rn9voayxF2oRoMIK1QS6ZJb4fMVEQZdU2D6gTKmWhcCQQ==}
+  /eslint-config-xo-typescript/0.56.0_dhxgky7xubg7msqg3vpyojh4wa:
+    resolution: {integrity: sha512-JOuV9M6R0BphdWome5SiolbsZFpw5DX83HgUaIUoEZwkk0hDv+fmPoHNc3KwmoON5QEkuBxlIbW0o3PifzPCuw==}
     engines: {node: '>=12'}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '>=5.43.0'
