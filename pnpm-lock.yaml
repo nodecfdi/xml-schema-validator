@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@nodecfdi/cfdiutils-common':
@@ -22,8 +26,8 @@ devDependencies:
     specifier: ^1.0.0
     version: 1.0.0
   '@rollup/plugin-commonjs':
-    specifier: ^24.0.1
-    version: 24.0.1(rollup@3.10.1)
+    specifier: ^25.0.0
+    version: 25.0.0(rollup@3.10.1)
   '@rollup/plugin-node-resolve':
     specifier: ^15.0.1
     version: 15.0.1(rollup@3.10.1)
@@ -1088,8 +1092,8 @@ packages:
       conventional-changelog-conventionalcommits: 4.6.3
     dev: true
 
-  /@rollup/plugin-commonjs@24.0.1(rollup@3.10.1):
-    resolution: {integrity: sha512-15LsiWRZk4eOGqvrJyu3z3DaBu5BhXIMeWnijSRvd8irrrg9SHpQ1pH+BUK4H6Z9wL9yOxZJMTLU+Au86XHxow==}
+  /@rollup/plugin-commonjs@25.0.0(rollup@3.10.1):
+    resolution: {integrity: sha512-hoho2Kay9TZrLu0bnDsTTCaj4Npa+THk9snajP/XDNb9a9mmjTjh52EQM9sKl3HD1LsnihX7js+eA2sd2uKAhw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.68.0||^3.0.0
