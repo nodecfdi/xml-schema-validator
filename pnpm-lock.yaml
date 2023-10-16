@@ -101,8 +101,8 @@ devDependencies:
     specifier: ^0.25.0
     version: 0.25.2(typescript@4.9.4)
   typedoc-theme-hierarchy:
-    specifier: ^3.0.2
-    version: 3.0.2(typedoc@0.25.2)
+    specifier: ^4.0.0
+    version: 4.1.2(typedoc@0.25.2)
   typescript:
     specifier: ^4.9.4
     version: 4.9.4
@@ -2713,17 +2713,17 @@ packages:
       mime-types: 2.1.35
     dev: true
 
-  /fs-extra@10.1.0:
-    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
-    engines: {node: '>=12'}
+  /fs-extra@11.1.0:
+    resolution: {integrity: sha512-0rcTq621PD5jM/e0a3EJoGC/1TC5ZBCERW82LQuwfGnCa1V8w7dpYH1yNu+SLb6E5dkeCBzKEyLGlFrnr+dUyw==}
+    engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
     dev: true
 
-  /fs-extra@11.1.0:
-    resolution: {integrity: sha512-0rcTq621PD5jM/e0a3EJoGC/1TC5ZBCERW82LQuwfGnCa1V8w7dpYH1yNu+SLb6E5dkeCBzKEyLGlFrnr+dUyw==}
+  /fs-extra@11.1.1:
+    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
     engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.10
@@ -5084,12 +5084,12 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typedoc-theme-hierarchy@3.0.2(typedoc@0.25.2):
-    resolution: {integrity: sha512-aTVV3bpnVTmBwQi+kfV6IaknIzZZbiFcQhxCHZhCsxzntnPLQiaEQ/o7WldQ40u+NajgGJK+oVFaOf/eimt1TA==}
+  /typedoc-theme-hierarchy@4.1.2(typedoc@0.25.2):
+    resolution: {integrity: sha512-X3H+zaDkg7wLNoaPJoqXs3rnMfZ9BZjmlXRwplWDciaPfn2hojHxJJ+yVKdqqmojgiHJgg7MYWGDVpOfNlOJ5A==}
     peerDependencies:
-      typedoc: ^0.23.6
+      typedoc: ^0.24.0 || ^0.25.0
     dependencies:
-      fs-extra: 10.1.0
+      fs-extra: 11.1.1
       typedoc: 0.25.2(typescript@4.9.4)
     dev: true
 
