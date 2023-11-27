@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.2.3
     version: 1.2.3
   libxmljs2:
-    specifier: ^0.32.0
-    version: 0.32.0
+    specifier: ^0.33.0
+    version: 0.33.0
 
 devDependencies:
   '@changesets/cli':
@@ -1012,8 +1012,8 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
-  /@mapbox/node-pre-gyp@1.0.10:
-    resolution: {integrity: sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==}
+  /@mapbox/node-pre-gyp@1.0.11:
+    resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
     dependencies:
       detect-libc: 2.0.1
@@ -1023,7 +1023,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.5.4
       tar: 6.1.13
     transitivePeerDependencies:
       - encoding
@@ -1392,7 +1392,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.8
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@4.9.4)
       typescript: 4.9.4
     transitivePeerDependencies:
@@ -3526,14 +3526,14 @@ packages:
       type-check: 0.4.0
     dev: true
 
-  /libxmljs2@0.32.0:
-    resolution: {integrity: sha512-DuvKfSQZeUzw0A4UWZXfcBpr3VqlcJY1b3aw99PxTiX3T5t1rEO4gSpobNrP9S74LIhyDKaAs/lphuErV+n+7w==}
-    engines: {node: '>=16'}
+  /libxmljs2@0.33.0:
+    resolution: {integrity: sha512-Hw74f2/3rbpxc6tkTqe3yrs4v2Tx0rEukrYxaNkXSVKK540i2eqlQxzf1jjG+RlwMuv66WxkkuZHM/OQq6km4w==}
+    engines: {node: '>=18'}
     requiresBuild: true
     dependencies:
-      '@mapbox/node-pre-gyp': 1.0.10
+      '@mapbox/node-pre-gyp': 1.0.11
       bindings: 1.5.0
-      nan: 2.17.0
+      nan: 2.18.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -3913,8 +3913,8 @@ packages:
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
-  /nan@2.17.0:
-    resolution: {integrity: sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==}
+  /nan@2.18.0:
+    resolution: {integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==}
     dev: false
 
   /nanoid@3.3.4:
@@ -3970,7 +3970,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.11.0
-      semver: 7.3.8
+      semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -4553,6 +4553,7 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: true
 
   /semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
@@ -4560,7 +4561,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /serialize-javascript@6.0.1:
     resolution: {integrity: sha512-owoXEFjWRllis8/M1Q+Cw5k8ZH40e3zhp/ovX+Xr/vi1qj6QesbyXXViFbpNvWvPNAD62SutwEXavefrLJWj7w==}
