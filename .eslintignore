@@ -1,9 +1,0 @@
-node_modules
-coverage
-dist
-docs
-temp
-
-# Config files
-rollup.config.mjs
-vitest.config.ts
