@@ -40,7 +40,7 @@
     "@nodecfdi/prettier-config": "^1.2.0",
     "@nodecfdi/tsconfig": "^1.7.2",
     "@types/node": "^20.16.5",
-    "@vitest/coverage-istanbul": "^2.1.0",
+    "@vitest/coverage-istanbul": "^2.1.1",
     "auto-changelog": "^2.5.0",
     "eslint": "^9.10.0",
     "husky": "^9.1.6",
@@ -51,10 +51,11 @@
     "tshy": "^3.0.2",
     "typedoc": "^0.26.7",
     "typescript": "^5.6.2",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.1"
   },
   "dependencies": {
-    "libxmljs2": "^0.35.0"
+    "libxmljs2": "^0.35.0",
+    "xpath": "^0.0.34"
   },
   "peerDependencies": {
     "@nodecfdi/cfdi-core": "^0.5.1"
@@ -107,6 +108,7 @@
     "selfLink": false,
     "exports": {
       ".": "./src/index.ts",
+      "./errors": "./src/errors.ts",
       "./package.json": "./package.json"
     }
   }
