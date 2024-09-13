@@ -1,11 +1,13 @@
 import { getParser, getSerializer, MIME_TYPE } from '@nodecfdi/cfdi-core';
 import { parseXml } from 'libxmljs2';
 import { useNamespaces } from 'xpath';
-import SchemaLocationPartsNotEvenError from '#src/errors/schema_location_parts_not_even_error';
-import ValidationFailError from '#src/errors/validation_fail_error';
-import XmlContentIsEmptyError from '#src/errors/xml_content_is_empty_error';
-import XmlContentIsInvalidError from '#src/errors/xml_content_is_invalid_error';
-import type XmlSchemaValidatorError from '#src/errors/xml_schema_validator_error';
+import {
+  SchemaLocationPartsNotEvenError,
+  ValidationFailError,
+  XmlContentIsEmptyError,
+  XmlContentIsInvalidError,
+  type XmlSchemaValidatorError,
+} from '#src/errors';
 import LibXmlError from '#src/internal/lib_xml_error';
 import Schemas from '#src/schemas';
 

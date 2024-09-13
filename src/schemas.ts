@@ -1,5 +1,5 @@
 import { getParser, getSerializer, MIME_TYPE } from '@nodecfdi/cfdi-core';
-import NamespaceNotFoundInSchemasError from '#src/errors/namespace_not_found_in_schemas_error';
+import { NamespaceNotFoundInSchemasError } from '#src/errors';
 import Schema from '#src/schema';
 
 export default class Schemas {
