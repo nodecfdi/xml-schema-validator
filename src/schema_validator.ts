@@ -1,8 +1,12 @@
-import { getParser, MIME_TYPE } from '@nodecfdi/cfdi-core';
+import { getParser, getSerializer, MIME_TYPE } from '@nodecfdi/cfdi-core';
+import { parseXml } from 'libxmljs2';
+import { useNamespaces } from 'xpath';
 import SchemaLocationPartsNotEvenError from '#src/errors/schema_location_parts_not_even_error';
+import ValidationFailError from '#src/errors/validation_fail_error';
 import XmlContentIsEmptyError from '#src/errors/xml_content_is_empty_error';
 import XmlContentIsInvalidError from '#src/errors/xml_content_is_invalid_error';
 import type XmlSchemaValidatorError from '#src/errors/xml_schema_validator_error';
+import LibXmlError from '#src/internal/lib_xml_error';
 import Schemas from '#src/schemas';
 
 export default class SchemaValidator {
@@ -45,8 +49,9 @@ export default class SchemaValidator {
    * - Validate using validate with schemas
    * - Populate the error property
    */
-  public validate(schemas?: Schemas): boolean {
+  public validate(_schemas?: Schemas): boolean {
     this._lastError = '';
+    let schemas = _schemas;
     try {
       if (!schemas) {
         schemas = this.buildSchemas();
@@ -76,18 +81,19 @@ export default class SchemaValidator {
    * @param schemas -
    */
   public validateWithSchemas(schemas: Schemas): void {
-    if (schemas.length === 0) return;
+    if (schemas.length === 0) {
+      return;
+    }
 
     // Build the unique import schema
     const xsdXml = schemas.getImporterXsd();
+    const xmlTarget = getSerializer().serializeToString(this._document);
+    const parsedXML = parseXml(xmlTarget);
+    const parsedSchema = parseXml(xsdXml);
+    const validationErrors = parsedXML.validate(parsedSchema) || parsedXML.validationErrors;
 
-    try {
-      const xsdDocument = parseXml(xsdXml);
-      const xmlTarget = parseXml(getSerializer().serializeToString(this._document));
-      xmlTarget.validate(xsdDocument);
-      LibXmlException.createFromLibXml(xmlTarget.validationErrors, true);
-    } catch (error) {
-      throw ValidationFailException.create(error as Error);
+    if (validationErrors !== true) {
+      throw ValidationFailError.create(LibXmlError.createFromLibXml(validationErrors) as Error);
     }
   }
 
@@ -111,14 +117,14 @@ export default class SchemaValidator {
 
     // Get all the xsi:schemaLocation attributes in the document
     const namespaces = {
-      [`${xsi}`]: 'http://www.w3.org/2001/XMLSchema-instance',
+      [xsi]: 'http://www.w3.org/2001/XMLSchema-instance',
     };
 
-    const selectWithNS = xpath.useNamespaces(namespaces);
+    const selectWithNS = useNamespaces(namespaces);
     const schemasList = selectWithNS(
       `//@${xsi}:schemaLocation`,
       this._document.documentElement,
-    ) as unknown as NodeList;
+    ) as Node[];
 
     for (const schema of schemasList) {
       schemas.import(this.buildSchemasFromSchemaLocationValue(schema.nodeValue!));

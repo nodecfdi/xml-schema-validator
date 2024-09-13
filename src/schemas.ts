@@ -21,7 +21,7 @@ export default class Schemas {
     for (const [, schema] of this._schemas) {
       const node = xsd.createElementNS('http://www.w3.org/2001/XMLSchema', 'import');
       node.setAttribute('namespace', schema.getNamespace());
-      node.setAttribute('schemaLocation', schema.getLocation().replace(/\\/g, '/'));
+      node.setAttribute('schemaLocation', schema.getLocation().replaceAll('\\', '/'));
       document.appendChild(node);
     }
 

@@ -6,7 +6,7 @@ export default class Schema {
 
   private readonly _location: string;
 
-  constructor(namespace: string, location: string) {
+  public constructor(namespace: string, location: string) {
     this._namespace = namespace;
     this._location = location;
   }
