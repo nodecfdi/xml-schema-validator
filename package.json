@@ -1,7 +1,7 @@
 {
   "name": "@nodecfdi/xml-schema-validator",
   "description": "Librería para validaciones de XML con Esquemas XSD",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "type": "module",
   "main": "./dist/commonjs/index.js",
   "module": "./dist/esm/index.js",
