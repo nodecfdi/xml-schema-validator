@@ -27,83 +27,16 @@ Esta es una librería para validar archivos XML a través de multiples Esquemas 
 3. Generar un esquema que incluya todos los esquemas.
 4. Validar el xml nuevamente con el esquema generado.
 
-Librería inspirada por la versión para php <https://github.com/eclipxe13/XmlSchemaValidator>
+Librería inspirada por la versión para php https://github.com/eclipxe13/XmlSchemaValidator
 
 ## Advertencia
 
 Actualmente solo está soportada la carga de esquema local, no funciona con esquemas remotos, debido a incompatibilidad
 con la lib actual.
 
-## Instalación
+## Documentación
 
-NPM
-
-```bash
-npm i @nodecfdi/xml-schema-validator --save
-```
-
-YARN
-
-```bash
-yarn add @nodecfdi/xml-schema-validator
-```
-
-PNPM
-
-```bash
-pnpm add @nodecfdi/xml-schema-validator
-```
-
-## Ejemplo básico de uso usando [xmldom](https://www.npmjs.com/package/@xmldom/xmldom)
-
-```ts
-import { readFileSync } from 'fs';
-import { SchemaValidator } from "@nodecfdi/xml-schema-validator";
-import { install } from '@nodecfdi/cfdiutils-common';
-import { DOMImplementation, DOMParser, XMLSerializer } from '@xmldom/xmldom';
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-
-const contents = readFileSync('example.xml', 'binary');
-
-// expect references on schemalocations are locally files
-const validator = SchemaValidator.createFromString(contents);
-if (!validator.validate()){
-    console.log(`Found error: ${validator.getLastError()}`);
-}
-```
-
-## Ejemplo avanzado de uso usando [xmldom](https://www.npmjs.com/package/@xmldom/xmldom)
-
-```ts
-import { getParser, install } from '@nodecfdi/cfdiutils-common';
-import { DOMImplementation, DOMParser, XMLSerializer } from '@xmldom/xmldom';
-import { SchemaValidator } from "@nodecfdi/xml-schema-validator";
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-
-// create SchemaValidator using a Document
-const docParse = getParser().parseFromString('example.xml', 'text/xml');
-const validator = new SchemaValidator(docParse);
-
-// change schemas collection to override the schema location of a specific namespace
-const schemas = validator.buildSchemas();
-schemas.create('http://example.org/schemas/x1', './local-schemas/x1.xsd');
-
-// validateWithSchemas does not return boolean, it throws an exception
-try{
-    validator.validateWithSchemas(schemas);
-}catch (e) {
-    console.log(`Found error: ${e.message}`);
-}
-
-// or validate with boolean
-if (!validator.validate(schemas)){
-    console.log(`Found error: ${validator.getLastError()}`);
-}
-```
+La documentación está disponible en el sitio web [NodeCfdi](https://nodecfdi.com/librarys/xml-schema-validator/getting-started/)
 
 ## Soporte
 
@@ -126,21 +59,19 @@ Las contribuciones con bienvenidas. Por favor lee [CONTRIBUTING][] para más det
 
 The `@nodecfdi/xml-schema-validator` library is copyright © [NodeCfdi](https://github.com/nodecfdi) - [OcelotlStudio](https://ocelotlstudio.com) and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
 
-[contributing]: https://github.com/nodecfdi/xml-schema-validator/blob/main/CONTRIBUTING.md
+[contributing]: https://github.com/nodecfdi/.github/blob/main/docs/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/xml-schema-validator/blob/main/CHANGELOG.md
-
 [source]: https://github.com/nodecfdi/xml-schema-validator
 [node-version]: https://www.npmjs.com/package/@nodecfdi/xml-schema-validator
 [discord]: https://discord.gg/AsqX8fkW2k
 [release]: https://www.npmjs.com/package/@nodecfdi/xml-schema-validator
-[license]: https://github.com/nodecfdi/xml-schema-validator/blob/main/LICENSE
+[license]: https://github.com/nodecfdi/xml-schema-validator/blob/main/LICENSE.md
 [build]: https://github.com/nodecfdi/xml-schema-validator/actions/workflows/build.yml?query=branch:main
-[reliability]:https://sonarcloud.io/component_measures?id=nodecfdi_xml-schema-validator&metric=Reliability
+[reliability]: https://sonarcloud.io/component_measures?id=nodecfdi_xml-schema-validator&metric=Reliability
 [maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_xml-schema-validator&metric=Maintainability
 [coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_xml-schema-validator&metric=Coverage
 [violations]: https://sonarcloud.io/project/issues?id=nodecfdi_xml-schema-validator&resolved=false
 [downloads]: https://www.npmjs.com/package/@nodecfdi/xml-schema-validator
-
 [badge-source]: https://img.shields.io/badge/source-nodecfdi/xml--schema--validator-blue.svg?logo=github
 [badge-node-version]: https://img.shields.io/node/v/@nodecfdi/xml-schema-validator.svg?logo=nodedotjs
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
