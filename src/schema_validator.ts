@@ -129,7 +129,9 @@ export default class SchemaValidator {
     ) as Node[];
 
     for (const schema of schemasList) {
-      schemas.import(this.buildSchemasFromSchemaLocationValue(schema.nodeValue!));
+      if (schema.nodeValue !== null) {
+        schemas.import(this.buildSchemasFromSchemaLocationValue(schema.nodeValue));
+      }
     }
 
     return schemas;

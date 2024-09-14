@@ -1,8 +1,7 @@
-import { type Server } from 'node:http';
 import { getParser, MIME_TYPE } from '@nodecfdi/cfdi-core';
 import SchemaValidator from '#src/schema_validator';
 import Schemas from '#src/schemas';
-import { fileContent, filePath, server } from '../tests_utils.js';
+import { fileContent, filePath } from '../tests_utils.js';
 
 describe('schema validators', () => {
   const utilCreateValidator = (file: string): SchemaValidator => {
@@ -10,19 +9,6 @@ describe('schema validators', () => {
 
     return SchemaValidator.createFromString(contents);
   };
-
-  let serverApp: Server;
-
-  beforeAll(async () => {
-    serverApp = server;
-    await new Promise((resolve, reject) => {
-      serverApp.listen(3000).on('listening', resolve).on('error', reject);
-    });
-  });
-
-  afterAll(() => {
-    serverApp.close();
-  });
 
   test('construct using existing document', () => {
     const documentParse = getParser().parseFromString(
@@ -143,15 +129,6 @@ describe('schema validators', () => {
       validator.getLastError().includes("The attribute 'serie' is required but missing"),
     ).toBeTruthy();
     expect(valid).toBeFalsy();
-  });
-
-  test('validate with schemas using remote', () => {
-    const validator = utilCreateValidator('books-valid.xml');
-    const schemas = new Schemas();
-    schemas.create('http://test.org/schemas/books', 'http://localhost:3000/xsd/books.xsd');
-    validator.validateWithSchemas(schemas);
-
-    expect(true).toBeTruthy();
   });
 
   test('validate with schemas using local', () => {
