@@ -17,7 +17,7 @@ export default class Schemas {
     );
     const pi = xsd.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"');
     xsd.insertBefore(pi, xsd.firstChild);
-    const document = xsd.documentElement;
+    const document = xsd.documentElement!;
     for (const [, schema] of this._schemas) {
       const node = xsd.createElementNS('http://www.w3.org/2001/XMLSchema', 'import');
       node.setAttribute('namespace', schema.getNamespace());

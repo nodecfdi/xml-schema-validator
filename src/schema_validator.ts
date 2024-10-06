@@ -1,4 +1,4 @@
-import { getParser, getSerializer, MIME_TYPE } from '@nodecfdi/cfdi-core';
+import { type Document, getParser, getSerializer, MIME_TYPE, type Node } from '@nodecfdi/cfdi-core';
 import { parseXml } from 'libxmljs2';
 import { useNamespaces } from 'xpath';
 import {
@@ -108,7 +108,7 @@ export default class SchemaValidator {
     const schemas = new Schemas();
 
     // Get the http://www.w3.org/2001/XMLSchema-instance namespace (it could not be 'xsi')
-    const xsi = this._document.documentElement.lookupPrefix(
+    const xsi = this._document.documentElement?.lookupPrefix(
       'http://www.w3.org/2001/XMLSchema-instance',
     );
 
@@ -125,8 +125,9 @@ export default class SchemaValidator {
     const selectWithNS = useNamespaces(namespaces);
     const schemasList = selectWithNS(
       `//@${xsi}:schemaLocation`,
+      // @ts-expect-error misssing Node properties are not needed
       this._document.documentElement,
-    ) as Node[];
+    ) as unknown as Node[];
 
     for (const schema of schemasList) {
       if (schema.nodeValue !== null) {
