@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.0.0](https://luffynando.github.com/nodecfdi/xml-schema-validator/compare/v1.1.1...v2.0.0)
+## [v2.0.1](https://luffynando.github.com/nodecfdi/xml-schema-validator/compare/v2.0.0...v2.0.1)
+
+### Commits
+
+- chore: :arrow_up: update dependencies [`f419ce6`](https://luffynando.github.com/nodecfdi/xml-schema-validator/commit/f419ce67e14f4377b4e9ff570a909fd07860d640)
+- style: :rotating_light: resolve all issues reported by eslint [`018fa8d`](https://luffynando.github.com/nodecfdi/xml-schema-validator/commit/018fa8d82cceee09c60b71eef8da344119e51e73)
+- build: :construction: remove not necessary export of package.json file [`44c3905`](https://luffynando.github.com/nodecfdi/xml-schema-validator/commit/44c39059a902c6f0a5796477045426973fbd0015)
+
+## [v2.0.0](https://luffynando.github.com/nodecfdi/xml-schema-validator/compare/v1.1.1...v2.0.0) - 2024-09-13
 
 ### Commits
 
