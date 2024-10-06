@@ -29,8 +29,7 @@
         "types": "./dist/commonjs/errors.d.ts",
         "default": "./dist/commonjs/errors.js"
       }
-    },
-    "./package.json": "./package.json"
+    }
   },
   "imports": {
     "#src/*": "./src/*.js"
@@ -130,8 +129,7 @@
     "selfLink": false,
     "exports": {
       ".": "./src/index.ts",
-      "./errors": "./src/errors.ts",
-      "./package.json": "./package.json"
+      "./errors": "./src/errors.ts"
     }
   }
 }
